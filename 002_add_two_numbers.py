@@ -14,21 +14,33 @@ For example:
   Output: 7 -> 0 -> 8
 """
 
-
 import unittest
-from util.listnode import ListNode
+import util.list_node as li
+from util.list_node import ListNode
+
 
 class MyTest(unittest.TestCase):
+    def assertListNodeEqual(self, l1, l2):
+        while l1 is not None and l2 is not None:
+            self.assertEqual(l1.val, l2.val)
+            l1 = l1.next
+            l2 = l2.next
+        self.assertIsNone(l1)
+        self.assertIsNone(l2)
 
     def test(self):
         solution = Solution()
-        self.assertTrue(ListNode.get_list_from_array([7,0,8]),
-                         solution.addTwoNumbers(ListNode.get_list_from_array([2, 4, 3]),
-                                                ListNode.get_list_from_array([5, 6, 4])))
-        self.assertFalse(ListNode.get_list_from_array([7, 0, 8]),
-                         solution.addTwoNumbers(ListNode.get_list_from_array([1, 2, 3]),
-                                                ListNode.get_list_from_array([1, 2, 3])))
+        e1 = li.get_list_from_array([2, 4, 6])
+        a1 = li.get_list_from_array([1, 2, 3])
+        b1 = li.get_list_from_array([1, 2, 3])
 
+        self.assertListNodeEqual(e1, solution.addTwoNumbers(a1, b1))
+
+        e2 = li.get_list_from_array([7, 0, 8])
+        a2 = li.get_list_from_array([2, 4, 3])
+        b2 = li.get_list_from_array([5, 6, 4])
+
+        self.assertListNodeEqual(e2, solution.addTwoNumbers(a2, b2))
 
 
 class Solution(object):
@@ -38,30 +50,18 @@ class Solution(object):
         :type l2: ListNode
         :rtype: ListNode
         """
+        dummy = ListNode(0)
         carry = 0
-        v1 = 0
-        v2 = 0
-        head = ListNode(-1)
-        tmp = head
-        while l1 is not None or l2 is not None:
-            if l1 is None:
-                v1 = 0
-            else:
-                v1 = l1.val
-            if l2 is None:
-                v2 = 0
-            else:
-                v2 = l2.val
-
-            sum = v1 + v2 + carry
-            head.next = ListNode(sum % 10)
-            carry = sum / 10
-
+        cur = dummy
+        while l1 is not None or l2 is not None or carry > 0:
+            sum = carry
             if l1 is not None:
+                sum += l1.val
                 l1 = l1.next
             if l2 is not None:
+                sum += l2.val
                 l2 = l2.next
-
-        if carry == 1:
-            head.next = ListNode(1)
-        return tmp.next
+            cur.next = ListNode(sum % 10)
+            carry = sum / 10
+            cur = cur.next
+        return dummy.next
