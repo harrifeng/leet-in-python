@@ -21,22 +21,30 @@ class MyTest(unittest.TestCase):
         self.assertEqual("aaabaaa", solution.longestPalindrome("aaabaaaa"))
 
 
-class Solution:
+class Solution(object):
     def longestPalindrome(self, s):
-        t = '$#' + '#'.join(s) + '#_'
-        p = [0] * 4010
-        mx, id, mmax, right = 0, 0, 0, 0
+        """
+        :type s: str
+        :rtype: str
+        """
+        t = "^#" + '#'.join(s) + "#$"
+        size = [0] * 3000
+        i = 1
+        tmpc, tmpr, maxp, maxi = 0, 0, 0, 0
+
         for i in range(1, len(t) - 1):
-            if mx > i:
-                p[i] = min(p[2 * id - i], mx - i)
+            if tmpr > i:
+                start = min(size[2 * tmpc - i], tmpr - i)
             else:
-                p[i] = 1
-            while t[i + p[i]] == t[i - p[i]]:
-                p[i] += 1
-            if i + p[i] > mx:
-                mx = i + p[i]
-                id = i
-            if mmax < p[i]:
-                mmax = p[i]
-                right = i
-        return s[right / 2 - mmax / 2: right / 2 - mmax / 2 + mmax - 1]
+                start = 1
+            while t[i + start] == t[i - start]:
+                start += 1
+            size[i] = start
+
+            if size[i] + i > tmpr:
+                tmpr = size[i] + i
+                tmpc = i
+            if maxp < size[i]:
+                maxp = size[i]
+                maxi = i
+        return s[maxi / 2 - maxp / 2: maxi / 2 - maxp / 2 + maxp - 1]
