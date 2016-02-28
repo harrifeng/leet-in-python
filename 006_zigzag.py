@@ -17,7 +17,6 @@ import unittest
 
 
 class MyTest(unittest.TestCase):
-
     def test(self):
         solution = Solution()
         self.assertEqual("PAHNAPLSIIGYIR",
@@ -29,7 +28,6 @@ class MyTest(unittest.TestCase):
 
 
 class Solution(object):
-
     def convert(self, s, numRows):
         """
         :type s: str
@@ -38,17 +36,13 @@ class Solution(object):
         """
         if numRows == 1:
             return s
+        l = [""] * numRows
         group = 2 * numRows - 2
-        l = []
-        for i in range(numRows):
-            l.append([])
         for i, c in enumerate(s):
             cur = i % group
             if cur < numRows:
-                l[cur].append(c)
+                l[cur] += c
             else:
-                l[group - cur].append(c)
-        ret = ""
-        for i in l:
-            ret += ''.join(i)
-        return ret
+                l[group - cur] += c
+
+        return "".join(l)
