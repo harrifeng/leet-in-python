@@ -23,30 +23,23 @@ class Solution(object):
         :type str: str
         :rtype: int
         """
-        if len(str) == 0:
+        str = str.strip()
+        N = len(str)
+        if N == 0:
             return 0
-        max_int = 2 ** 31 - 1
-        min_int = - 2 ** 31
-        beg = 0
-        while str[beg] == ' ':
-            beg += 1
-        neg = False
-        if str[beg] == '+':
-            beg += 1
-        if str[beg] == '-':
-            beg += 1
-            neg = True
-
-        ret = 0
-        for i in range(beg, len(str)):
-            cur = ord(str[i]) - ord('0')
-            if ret > max_int / 10 or ret == max_int/10 and cur > max_int % 10:
-                if neg:
-                    return min_int
-                else:
-                    return max_int
-            ret = ret * 10 + cur
-        if neg:
-            return -1 * ret
-        else:
-            return ret
+        res = 0
+        sign = 1
+        imin, imax = -1 << 31, (1 << 31) - 1
+        for i, bit in enumerate(str):
+            if i == 0 and bit in ['-', '+']:
+                if bit == '-':
+                    sign = -1
+            elif bit.isdigit():
+                res = res * 10 + int(bit)
+                if res * sign <= imin:
+                    return imin
+                elif res * sign >= imax:
+                    return imax
+            else:
+                break
+        return sign * res
