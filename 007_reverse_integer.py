@@ -23,9 +23,9 @@ class Solution(object):
         :type x: int
         :rtype: int
         """
-        pos = True
+        sign = 1
         if x < 0:
-            pos = False
+            sign = -1
         x = abs(x)
         ret = 0
         while x > 0:
@@ -33,6 +33,4 @@ class Solution(object):
             x //= 10
         if ret > 2**31 - 1:
             return 0
-        if not pos:
-            return -1 * ret
-        return ret
+        return sign * ret
