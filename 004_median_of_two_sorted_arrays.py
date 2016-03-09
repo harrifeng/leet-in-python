@@ -31,12 +31,12 @@ class Solution(object):
         :type nums2: List[int]
         :rtype: float
         """
-        sum = len(nums1) + len(nums2)
-        if sum % 2 == 0:
-            return (self.findNth(nums1, nums2, sum / 2) +
-                    self.findNth(nums1, nums2, sum / 2 + 1)) / 2.0
+        cnt = len(nums1) + len(nums2)
+        if cnt % 2 == 0:
+            return (self.findNth(nums1, nums2, cnt / 2) +
+                    self.findNth(nums1, nums2, cnt / 2 + 1)) / 2.0
         else:
-            return self.findNth(nums1, nums2, sum / 2 + 1)
+            return self.findNth(nums1, nums2, cnt / 2 + 1)
 
     def findNth(self, nums1, nums2, nth):
         if len(nums1) > len(nums2):

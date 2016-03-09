@@ -54,14 +54,14 @@ class Solution(object):
         carry = 0
         cur = dummy
         while l1 is not None or l2 is not None or carry > 0:
-            sum = carry
+            cnt = carry
             if l1 is not None:
-                sum += l1.val
+                cnt += l1.val
                 l1 = l1.next
             if l2 is not None:
-                sum += l2.val
+                cnt += l2.val
                 l2 = l2.next
-            cur.next = ListNode(sum % 10)
-            carry = sum / 10
+            cur.next = ListNode(cnt % 10)
+            carry = cnt / 10
             cur = cur.next
         return dummy.next

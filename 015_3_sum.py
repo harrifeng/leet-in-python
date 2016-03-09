@@ -39,8 +39,8 @@ class Solution(object):
             beg = i + 1
             end = N - 1
             while beg < end:
-                sum = nums[i] + nums[beg] + nums[end]
-                if sum == 0:
+                cnt = nums[i] + nums[beg] + nums[end]
+                if cnt == 0:
                     ret.append([nums[i], nums[beg], nums[end]])
                     while (beg < end and nums[beg] == nums[beg + 1] and
                            nums[end] == nums[end - 1]):
@@ -48,7 +48,7 @@ class Solution(object):
                         end -= 1
                     beg += 1
                     end -= 1
-                elif sum < 0:
+                elif cnt < 0:
                     beg += 1
                 else:
                     end -= 1
