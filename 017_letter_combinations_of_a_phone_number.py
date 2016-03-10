@@ -27,6 +27,8 @@ class Solution(object):
         :type digits: str
         :rtype: List[str]
         """
+        self.dmap = {'2': 'abc', '3': 'def', '4': 'ghi', '5': 'jkl',
+                     '6': 'mno', '7': 'pqrs', '8': 'tuv', '9': 'wxyz'}
         if len(digits) == 0:
             return []
         ret = []
@@ -34,13 +36,8 @@ class Solution(object):
         return ret
 
     def doCom(self, digits, level, tmp, ret):
-        d = {'2': 'abc', '3': 'def', '4': 'ghi', '5': 'jkl',
-             '6': 'mno', '7': 'pqrs', '8': 'tuv', '9': 'wxyz'}
         if level == len(digits):
             ret = ret.append(tmp[:])
             return
-        strs = d[digits[level]]
-        for c in strs:
-            tmp += c
-            self.doCom(digits, level + 1, tmp, ret)
-            tmp = tmp[:-1]
+        for c in self.dmap[digits[level]]:
+            self.doCom(digits, level + 1, tmp + c, ret)
