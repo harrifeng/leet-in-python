@@ -29,14 +29,9 @@ class Solution(object):
 
     def helper(self, left, right, tmp, ret):
         if left == 0 and right == 0:
-            ret.append(tmp)
+            ret.append(tmp[:])
             return
         if left > 0:
-            tmp += '('
-            self.helper(left - 1, right, tmp, ret)
-            tmp = tmp[:-1]
-
+            self.helper(left - 1, right, tmp + '(', ret)
         if right > left:
-            tmp += ')'
-            self.helper(left, right - 1, tmp, ret)
-            tmp = tmp[:-1]
+            self.helper(left, right - 1, tmp + ')', ret)
