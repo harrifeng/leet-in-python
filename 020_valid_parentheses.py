@@ -28,16 +28,12 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
+        d = {'(': ')', '[': ']', '{': '}'}
+
         sta = []
-        for i, c in enumerate(s):
-            if c in ['(', '[', '{']:
+        for c in s:
+            if c in d:
                 sta.append(c)
-            elif c == ')' and len(sta) > 0 and sta[-1] == '(':
-                sta = sta[:-1]
-            elif c == ']' and len(sta) > 0 and sta[-1] == '[':
-                sta = sta[:-1]
-            elif c == '}' and len(sta) > 0 and sta[-1] == '{':
-                sta = sta[:-1]
-            else:
+            elif len(sta) == 0 or c != d[sta.pop()]:
                 return False
         return len(sta) == 0
