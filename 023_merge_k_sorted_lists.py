@@ -2,7 +2,7 @@
 Merge k sorted linked lists and return it as one sorted list.
 Analyze and describe its complexity.
 """
-
+import heapq
 import unittest
 import util.list_node as li
 from util.list_node import ListNode
@@ -26,6 +26,12 @@ class MyTest(unittest.TestCase):
         s1 = [a1, b1, c1]
         r1 = li.get_list_from_array([1, 1, 2, 4, 8, 9, 14, 15, 16])
         self.assertListNodeEqual(r1, solution.mergeKLists(s1))
+        a1 = li.get_list_from_array([2, 4, 16])
+        b1 = li.get_list_from_array([1, 14, 15])
+        c1 = li.get_list_from_array([1, 8, 9])
+        s1 = [a1, b1, c1]
+        r1 = li.get_list_from_array([1, 1, 2, 4, 8, 9, 14, 15, 16])
+        self.assertListNodeEqual(r1, solution.mergeKListsMinQueue(s1))
 
 
 class Solution(object):
@@ -49,7 +55,20 @@ class Solution(object):
         :type lists: List[ListNode]
         :rtype: ListNode
         """
-        return []
+        pq = []
+        for i in lists:
+            if i is not None:
+                heapq.heappush(pq, (i.val, i))
+        dummy = ListNode(-1)
+        tmp = dummy
+        while len(pq) > 0:
+            val, cur = heapq.heappop(pq)
+            dummy.next = cur
+            dummy = dummy.next
+            if cur.next is not None:
+                heapq.heappush(pq, (cur.next.val, cur.next))
+
+        return tmp.next
 
     def mergeTwoLists(self, l1, l2):
         """
