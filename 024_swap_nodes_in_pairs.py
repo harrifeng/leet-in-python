@@ -41,10 +41,11 @@ class Solution(object):
 
         dummy = ListNode(-1)
         dummy.next = head
-        first = head
-        second = head.next
-        first.next = second.next
-        second.next = first
-        dummy.next = second
-        first.next = self.swapPairs(first.next)
+        tmp = head
+        for i in range(2):
+            cur = head
+            head = head.next
+            cur.next = dummy.next
+            dummy.next = cur
+        tmp.next = self.swapPairs(head)
         return dummy.next
