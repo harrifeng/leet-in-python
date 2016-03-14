@@ -19,37 +19,23 @@ class MyTest(unittest.TestCase):
 
 class Solution(object):
 
-    def strStr(self, t, p):
+    def strStr(self, s, p):
         """
         :type t: str
         :type p: str
         :rtype: int
         """
-        N = len(t)
+        N = len(s)
         M = len(p)
-        if M == 0:
-            return 0
-        next = self.pre(p)
-        i, k = -1, -1
-        while i < N:
-            if k == -1 or t[i] == p[k]:
-                k += 1
+        i, j = 0, 0
+        while i < N and j < M:
+            if s[i] == p[j]:
                 i += 1
-                if k == M:
-                    return i - M
+                j += 1
             else:
-                k = next[k]
-        return -1
-
-    def pre(self, p):
-        N = len(p)
-        next = [-1] * N
-        i, k = 0, -1
-        while i < N - 1:
-            if k == -1 or p[k] == p[i]:
-                i += 1
-                k += 1
-                next[i] = k
-            else:
-                k = next[k]
-        return next
+                i = i - j + 1
+                j = 0
+        if j == M:
+            return i - j
+        else:
+            return -1
