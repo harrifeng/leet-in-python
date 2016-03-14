@@ -28,14 +28,27 @@ class Solution(object):
         N = len(s)
         M = len(p)
         i, j = 0, 0
+        pre = self.pre_arr(p)
         while i < N and j < M:
-            if s[i] == p[j]:
+            if j == -1 or s[i] == p[j]:
                 i += 1
                 j += 1
             else:
-                i = i - j + 1
-                j = 0
+                j = pre[j]
         if j == M:
             return i - j
         else:
             return -1
+
+    def pre_arr(self, p):
+        N = len(p)
+        k, j = -1, 0
+        pre = [-1] * N
+        while j < N - 1:
+            if k == -1 or p[j] == p[k]:
+                j += 1
+                k += 1
+                pre[j] = k
+            else:
+                k = pre[k]
+        return pre
