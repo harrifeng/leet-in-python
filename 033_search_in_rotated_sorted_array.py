@@ -32,6 +32,7 @@ class Solution(object):
             return -1
         beg = 0
         end = N - 1
+        # Always be aware of Equal! imagine a equal example in your mind
         while beg <= end:
             mid = (beg + end) / 2
             if nums[mid] == target:
