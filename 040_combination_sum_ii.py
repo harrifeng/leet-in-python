@@ -39,11 +39,11 @@ class Solution(object):
         """
         def helper(target, nums, tmp, ret):
             if target == 0:
-                tmp = sorted(tmp)
-                if tmp not in ret:
-                    ret.append(tmp[:])
+                ret.append(tmp[:])
                 return
             for i, n in enumerate(nums):
+                if i > 0 and nums[i] == nums[i - 1]:
+                    continue
                 if target >= n:
                     tmp.append(n)
                     helper(target - n, nums[i + 1:], tmp, ret)
