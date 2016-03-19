@@ -37,18 +37,15 @@ class Solution(object):
         """
         if n == 1:
             return "1"
-        s = self.countAndSay(n - 1)
-        i = 0
+        s = self.countAndSay(n - 1) + "$"
         cnt = 1
         ret = ""
-        while i < len(s) - 1:
+        N = len(s)
+        for i in range(N-1):
             if s[i] == s[i + 1]:
                 cnt += 1
             else:
                 ret += str(cnt)
                 ret += str(s[i])
                 cnt = 1
-            i += 1
-        ret += str(cnt)
-        ret += str(s[-1])
         return ret
