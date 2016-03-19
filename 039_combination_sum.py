@@ -34,17 +34,14 @@ class Solution(object):
         """
         def helper(target, nums, tmp, ret):
             if target == 0:
-                ret.append(sorted(tmp[:]))
+                ret.append(tmp[:])
                 return
-            for n in nums:
+            for i, n in enumerate(nums):
                 if target >= n:
-                    if len(tmp) > 0 and n > tmp[-1]:
-                        return
                     tmp.append(n)
-                    helper(target - n, nums, tmp, ret)
+                    helper(target - n, nums[i:], tmp, ret)
                     tmp.pop()
 
         ret = []
-        nums = sorted(candidates)
-        helper(target, nums, [], ret)
+        helper(target, sorted(candidates), [], ret)
         return ret
