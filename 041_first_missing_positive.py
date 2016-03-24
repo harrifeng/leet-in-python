@@ -18,25 +18,26 @@ class MyTest(unittest.TestCase):
             [0, 2, 2, 4, 0, 1, 0, 1, 3, 6, 7, 9]))
 
 
-class Solution:
-    # @param A, a list of integers
-    # @return an integer
+class Solution(object):
 
-    def firstMissingPositive(self, A):
-        N = len(A)
+    def firstMissingPositive(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        N = len(nums)
         i = 0
         while i < N:
-            if A[i] <= 0 or A[i] == i + 1 or A[i] > N:
+            if nums[i] <= 0 or nums[i] > N or nums[i] == i + 1:
                 i += 1
             else:
-                x = A[i]
-                if A[i] == A[x - 1]:
+                tmp = nums[i]
+                # More easy to understand, it's already OK, so continue
+                if nums[tmp - 1] == tmp:
                     i += 1
                     continue
-                A[i], A[x - 1] = A[x - 1], A[i]
-
+                nums[tmp - 1], nums[i] = nums[i], nums[tmp - 1]
         for i in range(N):
-            if A[i] != i + 1:
+            if nums[i] != i + 1:
                 return i + 1
-
         return N + 1
