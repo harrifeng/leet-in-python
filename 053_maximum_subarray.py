@@ -14,6 +14,7 @@ class MyTest(unittest.TestCase):
         self.assertEqual(6, solution.maxSubArray(
             [-2, 1, -3, 4, -1, 2, 1, -5, 4]))
         self.assertEqual(1, solution.maxSubArray([-2, 1]))
+        self.assertEqual(-1, solution.maxSubArray([-1]))
 
 
 class Solution(object):
@@ -28,10 +29,7 @@ class Solution(object):
             return 0
 
         tmpv, maxv = nums[0], nums[0]
-        for i in range(1, N):
+        for num in nums[1:]:
+            tmpv = max(num, tmpv + num)
             maxv = max(maxv, tmpv)
-            if tmpv < 0:
-                tmpv = 0
-            tmpv += nums[i]
-
-        return max(maxv, tmpv)
+        return maxv
