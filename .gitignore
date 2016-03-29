@@ -63,3 +63,6 @@ target/
 
 #pycharm
 .idea/
+
+.vs/
+leet-in-python.pyproj
