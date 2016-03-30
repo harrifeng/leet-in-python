@@ -42,7 +42,8 @@ class Solution(object):
         N = len(intervals)
         if N <= 1:
             return intervals
-        intervals.sort(key=lambda x: x.start)
+
+        intervals = sorted(intervals, key=lambda x: x.start)
         ret = []
         prev = intervals[0]
         for inter in intervals[1:]:
