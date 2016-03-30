@@ -13,8 +13,7 @@ import util.interval as inte
 class MyTest(unittest.TestCase):
 
     def assertIntervalEqual(self, l1, l2):
-        if len(l1) != len(l2):
-            return False
+        self.assertEqual(len(l1), len(l2))
         l1 = sorted(l1)
         l2 = sorted(l2)
 
