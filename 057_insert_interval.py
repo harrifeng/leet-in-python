@@ -48,7 +48,6 @@ class MyTest(unittest.TestCase):
         self.assertIntervalEqual(r3, solution.insert(a3, n3))
 
 
-
 class Solution(object):
 
     def insert(self, intervals, newInterval):
@@ -57,23 +56,20 @@ class Solution(object):
         :type newInterval: Interval
         :rtype: List[Interval]
         """
-        N = len(intervals)
-        if N < 1:
-            return [newInterval]
-        intervals = sorted(intervals, key=lambda x: x.start)
-
-        i = 0
-        # cur = intervals[0]
-        ret = []
-        tmp = Interval(newInterval.start, newInterval.end)
-        while i < N:
-            cur = intervals[i]
-            if (cur.start <= newInterval.start and newInterval.start <= cur.end) or (cur.start <= newInterval.end and newInterval.end <= cur.end):
-                newInterval.start = min(newInterval.start, cur.start)
-                newInterval.end = max(newInterval.end, cur.end)
-                i += 1
+        res = []
+        inserted = False
+        for inter in intervals:
+            if newInterval.end < inter.start:
+                if not inserted:
+                    res.append(newInterval)
+                    inserted = True
+                res.append(inter)
+            elif inter.end < newInterval.start:
+                res.append(inter)
             else:
-                ret.append(cur)
-                i += 1
-        ret.append(newInterval)
-        return ret
+                newInterval.start = min(newInterval.start, inter.start)
+                newInterval.end = max(newInterval.end, inter.end)
+
+        if not inserted:
+            res.append(newInterval)
+        return res
