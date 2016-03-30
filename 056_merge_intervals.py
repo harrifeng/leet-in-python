@@ -20,23 +20,16 @@ class MyTest(unittest.TestCase):
 
         N = len(l1)
         for i in range(N):
-            if l1[i].start != l2[i].start:
-                return False
-            if l1[i].end != l2[i].end:
-                return False
-        return True
+            self.assertEqual(l1[i].start, l2[i].start)
+            self.assertEqual(l1[i].end, l2[i].end)
 
     def test(self):
         solution = Solution()
         a1 = inte.get_interval_list_from_listlist(
             [[1, 3], [2, 6], [8, 10], [15, 18]])
         r1 = inte.get_interval_list_from_listlist([[1, 6], [8, 10], [15, 18]])
-        a2 = inte.get_interval_list_from_listlist(
-            [[1, 3], [2, 6], [8, 10], [15, 18]])
-        r2 = inte.get_interval_list_from_listlist([[1, 3], [8, 10], [15, 18]])
 
-        self.assertTrue(self.assertIntervalEqual(r1, solution.merge(a1)))
-        self.assertFalse(self.assertIntervalEqual(r2, solution.merge(a2)))
+        self.assertIntervalEqual(r1, solution.merge(a1))
 
 
 class Solution(object):
