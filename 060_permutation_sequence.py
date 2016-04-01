@@ -30,28 +30,17 @@ class Solution(object):
         :type k: int
         :rtype: str
         """
-        if n == 0:
-            return ""
-
-        line = "123456789"
-
+        line = []
+        group = 1
         ret = ""
-        group = self.jiecheng(n)
-
+        for i in range(1, n + 1):
+            group *= i
+            line.append(str(i))
         k -= 1
         for i in reversed(range(1, n + 1)):
-            group = group / i
+            group /= i
             now = k / group
             k -= now * group
             ret += line[now]
-            line = line[:now] + line[now + 1:]
-
-        return ret
-
-    def jiecheng(self, n):
-        if n == 1:
-            return 1
-        ret = 1
-        for i in range(1, n + 1):
-            ret *= i
+            line.pop(now)
         return ret
