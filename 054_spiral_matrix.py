@@ -28,34 +28,36 @@ class Solution(object):
         :type matrix: List[List[int]]
         :rtype: List[int]
         """
-        M = len(matrix)
-        if len(matrix) == 0:
+        lr = len(matrix)
+        if lr == 0:
             return []
-        N = len(matrix[0])
-        start_col = start_row = 0
-        end_row = M - 1
-        end_col = N - 1
-        ret = []
+        lc = len(matrix[0])
 
+        beg_r = 0
+        end_r = lr - 1
+        beg_c = 0
+        end_c = lc - 1
+
+        ret = []
         while True:
-            for i in range(start_col, end_col + 1):
-                ret.append(matrix[start_row][i])
-            start_row += 1
-            if start_row > end_row:
+            for i in range(beg_c, end_c + 1):
+                ret.append(matrix[beg_r][i])
+            beg_r += 1
+            if beg_r > end_r:
                 break
-            for i in range(start_row, end_row + 1):
-                ret.append(matrix[i][end_col])
-            end_col -= 1
-            if start_col > end_col:
+            for i in range(beg_r, end_r + 1):
+                ret.append(matrix[i][end_c])
+            end_c -= 1
+            if beg_c > end_c:
                 break
-            for i in range(start_col, end_col + 1)[::-1]:
-                ret.append(matrix[end_row][i])
-            end_row -= 1
-            if start_row > end_row:
+            for i in reversed(range(beg_c, end_c + 1)):
+                ret.append(matrix[end_r][i])
+            end_r -= 1
+            if beg_r > end_r:
                 break
-            for i in range(start_row, end_row + 1)[::-1]:
-                ret.append(matrix[i][start_col])
-            start_col += 1
-            if start_col > end_col:
+            for i in reversed(range(beg_r, end_r + 1)):
+                ret.append(matrix[i][beg_c])
+            beg_c += 1
+            if beg_c > end_c:
                 break
         return ret
