@@ -26,7 +26,7 @@ class Solution(object):
         :rtype: str
         """
         adv = 0
-        ret = ""
+        ret = []
         i, j = len(a) - 1, len(b) - 1
         while i >= 0 or j >= 0 or adv > 0:
             cnt = adv
@@ -36,6 +36,6 @@ class Solution(object):
             if j >= 0:
                 cnt += int(b[j])
                 j -= 1
-            ret += str(cnt % 2)
+            ret.insert(0, str(cnt % 2))
             adv = cnt / 2
-        return ret[::-1]
+        return ''.join(ret)
