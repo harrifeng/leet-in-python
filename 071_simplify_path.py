@@ -12,7 +12,10 @@ class MyTest(unittest.TestCase):
     def test(self):
         solution = Solution()
         self.assertEqual("/home", solution.simplifyPath("/home/"))
+        self.assertEqual("/", solution.simplifyPath("/home/../../../"))
+        self.assertEqual("/", solution.simplifyPath("///"))
         self.assertEqual("/c", solution.simplifyPath("/a/./b/../../c/"))
+        self.assertEqual("/home/foo", solution.simplifyPath("/home//foo/"))
 
 
 class Solution(object):
@@ -24,16 +27,17 @@ class Solution(object):
         """
         sta = []
 
-        line = path.split('/')
+        line = path.strip('/').split('/')
 
         for c in line:
-            if c == '.':
-                pass
+            if c == '.' or c == '':
+                continue
             elif c == '..':
-                sta.pop()
+                if len(sta) > 0:
+                    sta.pop()
             else:
                 sta.append(c)
 
         if len(sta) > 1 and sta[-1] == '':
             sta.pop()
-        return '/'.join(sta)
+        return '/' + '/'.join(sta)
