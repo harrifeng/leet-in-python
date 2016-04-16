@@ -23,15 +23,15 @@ class Solution(object):
         :type x: int
         :rtype: int
         """
-        left = 0                         # Here must 0, otherwise 1 won't pass
-        right = x                        # Use x/2 + 1
-        while left <= right:             # <=
-            mid = (left + right) / 2
+        beg = 0
+        end = x
+        while beg <= end:
+            mid = (beg + end) / 2
             sqr = mid * mid
             if sqr == x:
                 return mid
             elif sqr < x:
-                left = mid + 1
+                beg = mid + 1
             else:
-                right = mid - 1
-        return (left + right) / 2           # This is so important
+                end = mid - 1
+        return (beg + end) / 2
