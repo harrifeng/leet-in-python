@@ -32,27 +32,18 @@ class Solution(object):
         :type nums: List[int]
         :rtype: void Do not return anything, modify nums in-place instead.
         """
-        N = len(nums)
-        end = N - 1
+        end = len(nums) - 1
         beg = 0
+        cur = 0
 
-        while beg < end:
-            if nums[end] == 2:
-                end -= 1
-                continue
-            if nums[beg] == 0:
+        while cur <= end:
+            if nums[cur] == 0:
+                nums[beg], nums[cur] = nums[cur], nums[beg]
                 beg += 1
-                continue
-            if nums[beg] == 1:
-                tmp = beg + 1
-                while tmp <= end and nums[tmp] == 1:
-                    tmp += 1
-                if tmp > end:
-                    return
-
-                nums[beg], nums[tmp] = nums[tmp], nums[beg]
-                continue
-            if nums[beg] == 2:
-                nums[beg], nums[end] = nums[end], nums[beg]
+                cur += 1
+            elif nums[cur] == 1:
+                cur += 1
+            else:
+                nums[cur], nums[end] = nums[end], nums[cur]
                 end -= 1
         return
