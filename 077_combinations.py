@@ -1,10 +1,8 @@
 """
 Given two integers n and k, return all possible combinations of k numbers out
 of 1 ... n.
-
 For example,
 If n = 4 and k = 2, a solution is:
-
 [
   [2,4],
   [3,4],
@@ -37,20 +35,15 @@ class Solution(object):
         :type k: int
         :rtype: List[List[int]]
         """
-
-        def helper(nums, k, level, tmp, ret):
+        def helper(cur, n, k, tmp, ret):
             if k == 0:
                 ret.append(tmp[:])
                 return
-            for c in nums[level:]:
-                if len(tmp) > 0 and tmp[-1] >= c:
-                    continue
-                tmp.append(c)
-                helper(nums, k - 1, level + 1, tmp, ret)
+            for i in range(cur, n + 1):
+                tmp.append(i)
+                helper(i + 1, n, k - 1, tmp, ret)
                 tmp.pop()
+
         ret = []
-        nums = []
-        for i in range(1, n + 1):
-            nums.append(i)
-        helper(nums, k, 0, [], ret)
+        helper(1, n, k, [], ret)
         return ret
