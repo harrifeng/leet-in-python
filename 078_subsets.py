@@ -45,8 +45,6 @@ class Solution(object):
         """
         def helper(nums, tmp, ret):
             ret.append(tmp[:])
-            if len(nums) == 0:
-                return
             for i, c in enumerate(nums):
                 tmp.append(c)
                 helper(nums[i + 1:], tmp, ret)
