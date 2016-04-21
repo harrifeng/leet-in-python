@@ -16,6 +16,7 @@ class MyTest(unittest.TestCase):
         solution = Solution()
         self.assertEqual(3, solution.lengthOfLongestSubstring("abcabcbb"))
         self.assertEqual(1, solution.lengthOfLongestSubstring("bbbbb"))
+        self.assertEqual(2, solution.lengthOfLongestSubstring("abba"))
 
 
 class Solution(object):
