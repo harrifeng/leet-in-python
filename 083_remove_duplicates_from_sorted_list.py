@@ -44,18 +44,10 @@ class Solution(object):
         if head is None or head.next is None:
             return head
 
-        dummy = ListNode(-1)
-        dummy.next = head
-        tmp = dummy
-
-        pre = head
-        cur = head.next
-        dummy.next = ListNode(pre.val)
-        dummy = dummy.next
-        while cur is not None:
-            if cur.val != pre.val:
-                dummy.next = ListNode(cur.val)
-                dummy = dummy.next
-            cur = cur.next
-            pre = pre.next
-        return tmp.next
+        cur = head
+        while cur.next is not None:
+            if cur.val == cur.next.val:
+                cur.next = cur.next.next
+            else:
+                cur = cur.next
+        return head
