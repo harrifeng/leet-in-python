@@ -47,18 +47,20 @@ class Solution(object):
 
         dummy = ListNode(-1)
         dummy.next = head
-        mark = dummy
 
-        beg = dummy
-        cur = head
+        # pre is the last Valid member
+        pre = dummy
+        cur = head.next
 
-        while cur is not None:
-            if ((beg == dummy or beg.val != cur.val) and
-                (cur.next is None or
-                 cur.val != cur.next.val)):
-                mark.next = cur
-                mark = mark.next
-            beg = beg.next
-            cur = cur.next
-        mark.next = None
+        while cur:
+            if pre.next.val != cur.val:
+                pre = pre.next
+                cur = cur.next
+            else:
+                while cur and cur.val == pre.next.val:
+                    cur = cur.next
+                # Don't worry pre.next is To Valid
+                pre.next = cur
+                if cur:         # pre.next can be assigned to None in this way
+                    cur = cur.next
         return dummy.next
