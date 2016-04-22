@@ -32,4 +32,4 @@ class Solution(object):
         if n >= 0:
             return powPos(x, n)
         else:
-            return 1/powPos(x, -n)
+            return 1 / powPos(x, -n)

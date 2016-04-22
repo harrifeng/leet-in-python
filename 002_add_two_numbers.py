@@ -20,6 +20,7 @@ from util.list_node import ListNode
 
 
 class MyTest(unittest.TestCase):
+
     def assertListNodeEqual(self, l1, l2):
         while l1 is not None and l2 is not None:
             self.assertEqual(l1.val, l2.val)
@@ -44,6 +45,7 @@ class MyTest(unittest.TestCase):
 
 
 class Solution(object):
+
     def addTwoNumbers(self, l1, l2):
         """
         :type l1: ListNode

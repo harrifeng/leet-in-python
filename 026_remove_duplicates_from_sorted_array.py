@@ -34,7 +34,7 @@ class Solution(object):
             return N
         pre = 0
         for i in range(1, N):
-            if nums[i] != nums[i-1]:
+            if nums[i] != nums[i - 1]:
                 pre += 1
                 nums[pre] = nums[i]
         return pre + 1

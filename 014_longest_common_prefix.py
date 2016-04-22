@@ -7,6 +7,7 @@ import unittest
 
 
 class MyTest(unittest.TestCase):
+
     def test(self):
         solution = Solution()
         self.assertEqual("ab", solution.longestCommonPrefix(["abcd", "abccc",
@@ -15,6 +16,7 @@ class MyTest(unittest.TestCase):
 
 
 class Solution(object):
+
     def longestCommonPrefix(self, strs):
         """
         :type strs: List[str]

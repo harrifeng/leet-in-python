@@ -11,6 +11,7 @@ import unittest
 
 
 class MyTest(unittest.TestCase):
+
     def test(self):
         solution = Solution()
         d = 0.00001
@@ -25,6 +26,7 @@ class MyTest(unittest.TestCase):
 
 
 class Solution(object):
+
     def findMedianSortedArrays(self, nums1, nums2):
         """
         :type nums1: List[int]

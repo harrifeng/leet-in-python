@@ -17,6 +17,7 @@ import unittest
 
 
 class MyTest(unittest.TestCase):
+
     def test(self):
         solution = Solution()
         self.assertEqual("PAHNAPLSIIGYIR",
@@ -28,6 +29,7 @@ class MyTest(unittest.TestCase):
 
 
 class Solution(object):
+
     def convert(self, s, numRows):
         """
         :type s: str

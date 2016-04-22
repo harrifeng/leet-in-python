@@ -37,5 +37,5 @@ class Solution(object):
             return [0]
 
         ret = self.grayCode(n - 1)
-        ret.extend(map(lambda x: x + 2 ** (n-1), ret[::-1]))
+        ret.extend(map(lambda x: x + 2 ** (n - 1), ret[::-1]))
         return ret

@@ -11,6 +11,7 @@ import unittest
 
 
 class MyTest(unittest.TestCase):
+
     def test(self):
         solution = Solution()
         self.assertEqual("abccba", solution.longestPalindrome("abccbaaaa"))
@@ -22,6 +23,7 @@ class MyTest(unittest.TestCase):
 
 
 class Solution(object):
+
     def longestPalindrome(self, s):
         """
         :type s: str

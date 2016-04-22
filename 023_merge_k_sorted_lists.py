@@ -47,8 +47,8 @@ class Solution(object):
         if N == 1:
             return lists[0]
 
-        return self.mergeTwoLists(self.mergeKLists(lists[:N/2]),
-                                  self.mergeKLists(lists[N/2:]))
+        return self.mergeTwoLists(self.mergeKLists(lists[:N / 2]),
+                                  self.mergeKLists(lists[N / 2:]))
 
     def mergeKListsMinQueue(self, lists):
         """

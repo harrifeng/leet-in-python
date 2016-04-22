@@ -39,9 +39,9 @@ class Solution(object):
             return target in matrix[0]
 
         mid = N / 2
-        if target in matrix[mid-1]:
+        if target in matrix[mid - 1]:
             return True
-        elif matrix[mid-1][-1] < target:
+        elif matrix[mid - 1][-1] < target:
             return self.searchMatrix(matrix[mid:], target)
         else:
-            return self.searchMatrix(matrix[:mid-1], target)
+            return self.searchMatrix(matrix[:mid - 1], target)

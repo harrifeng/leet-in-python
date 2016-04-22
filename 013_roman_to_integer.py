@@ -7,6 +7,7 @@ import unittest
 
 
 class MyTest(unittest.TestCase):
+
     def test(self):
         solution = Solution()
         self.assertEqual(1, solution.romanToInt("I"))
@@ -17,6 +18,7 @@ class MyTest(unittest.TestCase):
 
 
 class Solution(object):
+
     def romanToInt(self, s):
         """
         :type s:str

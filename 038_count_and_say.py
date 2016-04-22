@@ -41,7 +41,7 @@ class Solution(object):
         cnt = 1
         ret = ""
         N = len(s)
-        for i in range(N-1):
+        for i in range(N - 1):
             if s[i] == s[i + 1]:
                 cnt += 1
             else:
