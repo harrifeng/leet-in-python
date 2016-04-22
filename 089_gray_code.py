@@ -35,12 +35,7 @@ class Solution(object):
         """
         if n == 0:
             return [0]
-        if n == 1:
-            return [0, 1]
 
-        parta = self.grayCode(n - 1)
-        partb = parta[::-1]
-        for i, c in enumerate(partb):
-            partb[i] += 2 ** (n - 1)
-        parta.extend(partb)
-        return parta
+        ret = self.grayCode(n - 1)
+        ret.extend(map(lambda x: x + 2 ** (n-1), ret[::-1]))
+        return ret
