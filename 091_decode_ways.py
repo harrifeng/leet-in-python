@@ -40,38 +40,18 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-
-        N = len(s)
-        if N > 0 and s[0] == '0':
+        if s == '' or s[0] == '0':
             return 0
-        if N <= 1:
-            return N
-        dp = [1 for i in range(N)]
+        dp = [1, 1]
+        N = len(s)
 
-        # s[0] can not be 1 here
-        if int(s[:2]) == 10 or int(s[:2]) == 20:  # half valid
-            dp[1] = 1
-        elif int(s[:2]) > 10 and int(s[:2]) <= 26:  # full valid
-            dp[1] = 2
-        elif s[1] == '0':
-            dp[1] = 0
-        else:
-            dp[1] = 1  # non-valid
-
-        for i in range(2, N):
-            cnt = 0
-            if s[i] == '0':
-                # half valid
-                if int(s[i - 1:i + 1]) == 10 or int(s[i - 1:i + 1]) == 20:
-                    dp[i] = dp[i - 2]
-                    continue
-                else:
-                    return 0
-            if int(s[i - 1:i + 1]) > 10 and int(s[i - 1:i + 1]) <= 26:
-                cnt = dp[i - 2]
-            elif int(s[i - 1:i + 1]) == 0:
-                return 0
+        for i in range(2, N + 1):
+            if 10 <= int(s[i - 2:i]) <= 26 and s[i - 1] != '0':
+                dp.append(dp[i - 1] + dp[i - 2])
+            elif 10 <= int(s[i - 2:i]) <= 26:
+                dp.append(dp[i - 2])
+            elif s[i - 1] != '0':
+                dp.append(dp[i - 1])
             else:
-                cnt = 0
-            dp[i] = dp[i - 1] + cnt
-        return dp[N - 1]
+                return 0
+        return dp[N]
