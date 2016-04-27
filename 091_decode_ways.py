@@ -46,12 +46,15 @@ class Solution(object):
         N = len(s)
 
         for i in range(2, N + 1):
-            if 10 <= int(s[i - 2:i]) <= 26 and s[i - 1] != '0':
-                dp.append(dp[i - 1] + dp[i - 2])
-            elif 10 <= int(s[i - 2:i]) <= 26:
-                dp.append(dp[i - 2])
-            elif s[i - 1] != '0':
-                dp.append(dp[i - 1])
-            else:
+            if 10 <= int(s[i - 2:i]) <= 26:
+                if s[i - 1] != '0':
+                    dp.append(dp[i - 1] + dp[i - 2])
+                else:
+                    dp.append(dp[i - 2])
+            # last two is not valid, if last is '0'
+            # no futher is needed to process
+            elif s[i - 1] == '0':
                 return 0
+            else:
+                dp.append(dp[i - 1])
         return dp[N]
