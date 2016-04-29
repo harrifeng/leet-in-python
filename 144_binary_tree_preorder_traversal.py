@@ -34,12 +34,16 @@ class Solution(object):
         :type root: TreeNode
         :rtype: List[int]
         """
-        if root is None:
-            return []
+        sta = []
         ret = []
-        ret.append(root.val)
-        if root.left:
-            ret.extend(self.preorderTraversal(root.left))
-        if root.right:
-            ret.extend(self.preorderTraversal(root.right))
-        return ret[:]
+        cur = root
+
+        while cur is not None or len(sta) > 0:
+            if cur is not None:
+                ret.append(cur.val)
+                sta.append(cur)
+                cur = cur.left
+            elif len(sta) > 0:
+                cur = sta.pop()
+                cur = cur.right
+        return ret
