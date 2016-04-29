@@ -1,4 +1,6 @@
 import Queue
+
+
 class TreeNode(object):
 
     def __init__(self, x):
@@ -18,9 +20,13 @@ def get_tree_from_array(arr):
     while not q.empty():
         cur = q.get()
         if len(arr) > 0:
-            cur.left = TreeNode(arr.pop())
-            q.put(cur.left)
+            lnode = arr.pop()
+            if lnode != '#':
+                cur.left = TreeNode(lnode)
+                q.put(cur.left)
         if len(arr) > 0:
-            cur.right = TreeNode(arr.pop())
-            q.put(cur.right)
+            rnode = arr.pop()
+            if rnode != '#':
+                cur.right = TreeNode(rnode)
+                q.put(cur.right)
     return root

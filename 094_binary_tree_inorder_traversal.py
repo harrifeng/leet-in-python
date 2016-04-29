@@ -23,6 +23,9 @@ class MyTest(unittest.TestCase):
         root = tr.get_tree_from_array([1, 2, 3])
         self.assertEqual([2, 1, 3], solution.inorderTraversal(root))
 
+        root2 = tr.get_tree_from_array([1, '#', 2, 3])
+        self.assertEqual([1, 3, 2], solution.inorderTraversal(root2))
+
 
 class Solution(object):
 
