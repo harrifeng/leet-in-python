@@ -26,6 +26,9 @@ class MyTest(unittest.TestCase):
         root2 = tr.get_tree_from_array([1, '#', 2, 3])
         self.assertEqual([3, 2, 1], solution.postorderTraversal(root2))
 
+        root3 = tr.get_tree_from_array([3, 1, '#', '#', 2])
+        self.assertEqual([2, 1, 3], solution.postorderTraversal(root3))
+
 
 class Solution(object):
 
@@ -34,12 +37,22 @@ class Solution(object):
         :type root: TreeNode
         :rtype: List[int]
         """
-        if root is None:
-            return []
         ret = []
-        if root.left:
-            ret.extend(self.postorderTraversal(root.left))
-        if root.right:
-            ret.extend(self.postorderTraversal(root.right))
-        ret.append(root.val)
-        return ret[:]
+        sta = []
+        tmp = []
+        cur = root
+        visited = {}
+        while cur is not None or len(sta) > 0 or len(tmp) > 0:
+            if cur is not None:
+                sta.append(cur)
+                cur = cur.left
+            else:
+                cur = sta.pop()
+                if cur.right is None or cur in visited:
+                    ret.append(cur.val)
+                    cur = None
+                else:
+                    sta.append(cur)
+                    visited[cur] = True
+                    cur = cur.right
+        return ret
