@@ -39,10 +39,9 @@ class Solution(object):
         """
         ret = []
         sta = []
-        tmp = []
         cur = root
         visited = {}
-        while cur is not None or len(sta) > 0 or len(tmp) > 0:
+        while cur is not None or len(sta) > 0:
             if cur is not None:
                 sta.append(cur)
                 cur = cur.left
