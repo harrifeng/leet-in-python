@@ -31,43 +31,12 @@ class Solution(object):
         :rtype: int
         """
         if n <= 1:
-            return n
+            return 1
+        dp = [0] * (n + 1)
+        dp[0] = 1
+        dp[1] = 1
 
-        def isValid(arr):
-            N = len(arr)
-            if N == 0:
-                return True
-            if arr[0] == 0:
-                return sum(arr[1:N]) == 0
-            if N == 1:
-                return True
-            half = N / 2
-            for i in range(1, 1 + half):
-                if arr[i] != 0 and arr[0] < arr[i]:
-                    return False
-            for i in range(1 + half, N):
-                if arr[i] != 0 and arr[0] > arr[i]:
-                    return False
-            return isValid(arr[1:half + 1]) and isValid(arr[half + 1:])
-
-        def helper(arr, level, ret):
-            if len(arr) == level:
-                ret.append(arr[:])
-                return
-
-            for i in range(level, len(arr)):
-                if i == level or arr[i] not in arr[level:i]:
-                    arr[i], arr[level] = arr[level], arr[i]
-                    helper(arr, level + 1, ret)
-                    arr[i], arr[level] = arr[level], arr[i]
-        arr = [0] * (2 ** n - 1)
-        for i in range(1, n + 1):
-            arr[i] = i
-        ret = []
-        helper(arr, 0, ret)
-
-        cnt = 0
-        for c in ret:
-            if isValid(c):
-                cnt += 1
-        return cnt
+        for i in range(2, n + 1):
+            for j in range(i):
+                dp[i] += dp[j] * dp[i - 1 - j]
+        return dp[n]
