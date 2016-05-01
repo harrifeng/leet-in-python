@@ -17,7 +17,10 @@ class MyTest(unittest.TestCase):
 
     def test(self):
         solution = Solution()
+        self.assertEqual(14, solution.numTrees(4))
         self.assertEqual(5, solution.numTrees(3))
+        self.assertEqual(2, solution.numTrees(2))
+        self.assertEqual(1, solution.numTrees(1))
 
 
 class Solution(object):
@@ -27,6 +30,8 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
+        if n <= 1:
+            return n
 
         def isValid(arr):
             N = len(arr)
@@ -36,13 +41,14 @@ class Solution(object):
                 return sum(arr[1:N]) == 0
             if N == 1:
                 return True
-            for i in range(1, N / 2):
-                if arr[0] < arr[i]:
+            half = N / 2
+            for i in range(1, 1 + half):
+                if arr[i] != 0 and arr[0] < arr[i]:
                     return False
-            for i in range(N / 2, N):
-                if arr[0] > arr[i]:
+            for i in range(1 + half, N):
+                if arr[i] != 0 and arr[0] > arr[i]:
                     return False
-            return isValid(arr[1:N / 2]) and isValid(arr[N / 2 + 1:])
+            return isValid(arr[1:half + 1]) and isValid(arr[half + 1:])
 
         def helper(arr, level, ret):
             if len(arr) == level:
@@ -54,16 +60,14 @@ class Solution(object):
                     arr[i], arr[level] = arr[level], arr[i]
                     helper(arr, level + 1, ret)
                     arr[i], arr[level] = arr[level], arr[i]
-        arr = [1, 2, 3, 0, 0, 0, 0]
+        arr = [0] * (2 ** n - 1)
+        for i in range(1, n + 1):
+            arr[i] = i
         ret = []
         helper(arr, 0, ret)
 
         cnt = 0
         for c in ret:
             if isValid(c):
-                print c
                 cnt += 1
         return cnt
-        # pp = isValid([2, 1, 3, 0, 0, 0, 0])
-        # pp = isValid([2, 1, 0, 0, 3, 0, 0])
-        # return pp
