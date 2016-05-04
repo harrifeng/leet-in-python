@@ -16,6 +16,7 @@ class MyTest(unittest.TestCase):
         solution = Solution()
         self.assertEqual(2, solution.longestValidParentheses("()"))
         self.assertEqual(4, solution.longestValidParentheses(")()())"))
+        self.assertEqual(4, solution.longestValidParentheses("(()()"))
 
 
 class Solution:
