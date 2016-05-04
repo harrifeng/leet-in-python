@@ -28,6 +28,7 @@ class Solution(object):
         N = len(nums)
         i = 0
         while i < N:
+            # nums[i] is at most N, be careful about the N
             if nums[i] <= 0 or nums[i] > N or nums[i] == i + 1:
                 i += 1
             else:
