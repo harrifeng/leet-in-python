@@ -27,18 +27,18 @@ class Solution(object):
         else:
             sign = 1
 
-        dividend = abs(dividend)
-        divisor = abs(divisor)
+        a = abs(dividend)
+        b = abs(divisor)
 
         ret = 0
-        while dividend >= divisor:
-            tmp = divisor
+        while a >= b:
+            c = b
             i = 0
-            while dividend >= tmp:
-                dividend -= tmp
+            while a >= c:
+                a -= c
                 ret += (1 << i)
                 i += 1
-                tmp = (tmp << 1)
+                c = (c << 1)
 
         imin, imax = -2 ** 31, 2 ** 31 - 1
         if ret * sign > imax:
