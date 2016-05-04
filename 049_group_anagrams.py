@@ -32,16 +32,10 @@ class Solution(object):
         :type strs: List[str]
         :rtype: List[List[str]]
         """
-        def keyS(str):
-            return ''.join(sorted(str))
-
         d = {}
         for s in strs:
-            if keyS(s) in d:
-                d[keyS(s)].append(s)
-            else:
-                d[keyS(s)] = []
-                d[keyS(s)].append(s)
+            key = ''.join(sorted(s))
+            d.setdefault(key, []).append(s)
         ret = []
         for v in d.values():
             ret.append(sorted(v))
