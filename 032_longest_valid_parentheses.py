@@ -37,9 +37,14 @@ class Solution:
                 if len(stack) == 0:
                     last = i + 1
                 else:
-                    stack.pop()  # Pop the last index!
+                    # Pop the last index, the last index is only used to be
+                    # discard
+                    stack.pop()
                     if len(stack) == 0:  # Perfect pair since `last`
                         ret = max(ret, i - last + 1)
                     else:
+                        # stack[-1] is the right place that the matach begins
+                        # stack maybe [0, 3], which means (1,2) is already a
+                        # `()`
                         ret = max(ret, i - stack[-1])
         return ret
