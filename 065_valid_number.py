@@ -21,6 +21,8 @@ class MyTest(unittest.TestCase):
         self.assertFalse(solution.isNumber("abc"))
         self.assertFalse(solution.isNumber("1 a"))
         self.assertTrue(solution.isNumber("2e10"))
+        self.assertTrue(solution.isNumber("-1."))
+        self.assertTrue(solution.isNumber(" 005047e+6"))
 
 
 class Solution(object):

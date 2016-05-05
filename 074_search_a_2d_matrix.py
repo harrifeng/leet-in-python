@@ -38,10 +38,10 @@ class Solution(object):
         if N == 1:
             return target in matrix[0]
 
-        mid = N / 2
-        if target in matrix[mid - 1]:
+        mid = N / 2 - 1
+        if target in matrix[mid]:
             return True
-        elif matrix[mid - 1][-1] < target:
-            return self.searchMatrix(matrix[mid:], target)
+        elif matrix[mid][-1] < target:
+            return self.searchMatrix(matrix[mid+1:], target)
         else:
-            return self.searchMatrix(matrix[:mid - 1], target)
+            return self.searchMatrix(matrix[:mid], target)
