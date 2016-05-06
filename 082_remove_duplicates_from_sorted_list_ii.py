@@ -47,20 +47,22 @@ class Solution(object):
 
         dummy = ListNode(-1)
         dummy.next = head
-
-        # pre is the last Valid member
+        # like remove duplicate from array, pre is the last valid one
         pre = dummy
-        cur = head.next
+        cur = head
 
-        while cur:
-            if pre.next.val != cur.val:
+        while cur is not None:
+            if cur.next is not None and cur.next.val == cur.val:
+                while cur.next is not None:
+                    if cur.next.val != cur.val:
+                        break
+                    cur = cur.next
+                cur = cur.next  # first half valid here
+            # cur.val != cur.next.val, second half valid here
+            else:
+                pre.next = cur
                 pre = pre.next
                 cur = cur.next
-            else:
-                while cur and cur.val == pre.next.val:
-                    cur = cur.next
-                # Don't worry pre.next is To Valid
-                pre.next = cur
-                if cur:         # pre.next can be assigned to None in this way
-                    cur = cur.next
+        pre.next = None
+
         return dummy.next
