@@ -28,24 +28,20 @@ class Solution(object):
         :type root: TreeNode
         :rtype: bool
         """
-        def leftV(root):
-            if root is None:
-                return -2 ** 32
-            if root.right is None:
-                return root.val
-            else:
-                return leftV(root.right)
+        def inorderTrav(node):
+            if node is None:
+                return []
+            ret = []
+            ret.extend(inorderTrav(node.left))
+            ret.append(node.val)
+            ret.extend(inorderTrav(node.right))
+            return ret
 
-        def rightV(root):
-            if root is None:
-                return 2 ** 32 - 1
-            if root.left is None:
-                return root.val
-            else:
-                return rightV(root.left)
         if root is None:
             return True
-        return ((root.val > leftV(root.left)) and
-                (root.val < rightV(root.right)) and
-                self.isValidBST(root.left) and
-                self.isValidBST(root.right))
+        line = inorderTrav(root)
+
+        for i in range(1, len(line)):
+            if line[i] <= line[i-1]:
+                return False
+        return True
