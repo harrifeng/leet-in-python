@@ -54,9 +54,6 @@ class Solution(object):
         def helper(arr):
             if len(arr) == 0:
                 return [None]
-            if len(arr) == 1:
-                return [TreeNode(arr[0])]
-
             ret = []
             for i in range(0, len(arr)):
                 left = helper(arr[:i])
@@ -70,8 +67,5 @@ class Solution(object):
                         ret.append(dummy)
             return ret
 
-        nums = []
-        for i in range(1, n + 1):
-            nums.append(i)
-
+        nums = [i for i in range(1, n + 1)]
         return helper(nums)
