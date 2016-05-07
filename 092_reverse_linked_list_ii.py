@@ -45,20 +45,23 @@ class Solution(object):
         :type n: int
         :rtype: ListNode
         """
-        if head is None or head.next is None:
-            return head
+        times = n - m
+
         dummy = ListNode(-1)
         dummy.next = head
-        times = n - m
-        cur = dummy
+        beg = dummy
+
         for i in range(m - 1):
-            cur = cur.next
-        # cur is now the first unchanged
-        end = cur.next
+            beg = beg.next
+        # beg is the place to insert
+        # end is the last valid endpoint, we don't need to reverse
+        # the Mth one, so it is the first valid one
+        # `end` is the key of this problem
+        end = beg.next
 
         for i in range(times):
-            tmp = cur.next
-            cur.next = end.next
+            tmp = beg.next
+            beg.next = end.next
             end.next = end.next.next
-            cur.next.next = tmp
+            beg.next.next = tmp
         return dummy.next
