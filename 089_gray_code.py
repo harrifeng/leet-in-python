@@ -36,6 +36,8 @@ class Solution(object):
         if n == 0:
             return [0]
 
-        ret = self.grayCode(n - 1)
-        ret.extend(map(lambda x: x + 2 ** (n - 1), ret[::-1]))
+        first = self.grayCode(n - 1)
+        ret = first[:]
+        for c in first[::-1]:
+            ret.append(2 ** (n - 1) + c)
         return ret
