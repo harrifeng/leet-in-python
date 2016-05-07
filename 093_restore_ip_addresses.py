@@ -26,19 +26,19 @@ class Solution(object):
         :type s: str
         :rtype: List[str]
         """
-        def validNPart(s, n, tmp, ret):
-            if n == 0:
+        def helper(s, level, tmp, ret):
+            if level == 0:
                 if len(s) == 0:
-                    ret.append('.'.join(tmp[:]))
+                    ret.append('.'.join(tmp))
                 return
 
-            for i in range(1, min(4, len(s) + 1)):
+            for i in range(1, min(3, len(s)) + 1):
                 if int(s[:i]) < 256:
                     if len(s[:i]) > 1 and s[0] == '0':
                         continue
                     tmp.append(s[:i])
-                    validNPart(s[i:], n - 1, tmp, ret)
+                    helper(s[i:], level - 1, tmp, ret)
                     tmp.pop()
         ret = []
-        validNPart(s, 4, [], ret)
+        helper(s, 4, [], ret)
         return ret
