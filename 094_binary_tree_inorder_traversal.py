@@ -43,6 +43,9 @@ class Solution(object):
                 sta.append(cur)
                 cur = cur.left
             elif len(sta) > 0:
+                # every node is put into the stack and visit its left node
+                # in other words, every node pop from stack is the node whose
+                # left node is already visited
                 cur = sta.pop()
                 ret.append(cur.val)
                 cur = cur.right
