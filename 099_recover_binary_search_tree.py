@@ -28,27 +28,32 @@ class MyTest(unittest.TestCase):
         solution.recoverTree(r1)
         self.assertTreeNodeEqual(e1, r1)
 
+        e2 = tr.get_tree_from_array([4, 2, 6, 1, 3, 5, 7])
+        r2 = tr.get_tree_from_array([4, 2, 6, 1, 5, 3, 7])
+        solution.recoverTree(r2)
+        self.assertTreeNodeEqual(e2, r2)
 
-class Solution:
-    # @param root, a tree node
-    # @return a tree node
+
+class Solution(object):
 
     def recoverTree(self, root):
-        self.last = None
-        self.wrongs = [None, None]
-        self.recover_helper(root)
-        self.wrongs[0].val, self.wrongs[
-            1].val = self.wrongs[1].val, self.wrongs[0].val
-        # return root
+        """
+        :type root: TreeNode
+        :rtype: void Do not return anything, modify root in-place instead.
+        """
+        self.n1 = None
+        self.n2 = None
+        self.prev = None
+        self.helper(root)
+        self.n1.val, self.n2.val = self.n2.val, self.n1.val
+        return
 
-    def recover_helper(self, root):
-        if not root:
-            return
-        self.recover_helper(root.left)
-        if self.last and self.last.val > root.val:
-            if not self.wrongs[0]:
-                self.wrongs[0] = self.last
-            self.wrongs[1] = root
-        self.last = root
-
-        self.recover_helper(root.right)
+    def helper(self, root):
+        if root:
+            self.helper(root.left)
+            if self.prev and self.prev.val > root.val:
+                self.n2 = root
+                if self.n1 is None:
+                    self.n1 = self.prev
+            self.prev = root
+            self.helper(root.right)
