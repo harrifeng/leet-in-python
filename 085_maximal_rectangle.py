@@ -25,34 +25,37 @@ class Solution(object):
         :type matrix: List[List[str]]
         :rtype: int
         """
-        if len(matrix) == 0 or len(matrix[0]) == 0:
-            return 0
-        row = len(matrix)
-        col = len(matrix[0])
-        h = [0 for i in range(col + 1)]
-        max_area = 0
-        for i in range(row):
-            for j in range(col):
-                if matrix[i][j] == '0':
-                    h[j] = 0
-                else:
-                    h[j] += 1
-            max_area = max(max_area, self.largestRectangleArea(h))
-        return max_area
+        def getH(matrix, i, j):
+            if i == 0:
+                return 0
+            ret = 0
+            while j >= 0:
+                if matrix[i][j] == 0:
+                    break
+                ret += 1
+                j -= 1
+            return ret
 
-    def largestRectangleArea(self, h):
-        stack = []
-        max_area = 0
-        i = 0
-        while i < len(h):
-            if len(stack) == 0 or h[i] >= h[stack[-1]]:
-                stack.append(i)
-                i += 1
-            else:
-                height = h[stack.pop()]
-                if len(stack) == 0:
-                    width = i
+        m = len(matrix)
+        if m == 0:
+            return 0
+        maxv = 0
+
+        for i in range(m):
+            sta = []
+            now = matrix[i]
+            now.append(0)
+            j = 0
+            while j < len(now):
+                if len(sta) == 0 or \
+                   getH(matrix, i, j) >= getH(matrix, i, sta[-1]):
+                    sta.append(j)
+                    j += 1
                 else:
-                    width = i - stack[-1] - 1
-                max_area = max(max_area, width * height)
-        return max_area
+                    idx = sta.pop()
+                    if len(sta) == 0:
+                        width = j
+                    else:
+                        width = j - 1 - sta[-1]
+                    maxv = max(maxv, width * getH(matrix, i, idx))
+        return maxv
