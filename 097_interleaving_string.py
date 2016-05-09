@@ -38,7 +38,7 @@ class Solution(object):
             for j in range(N + 1):
                 if i == 0 and j == 0:
                     dp[i][j] = True
-                elif i > 0 and dp[i - 1][j] and s1[i - 1] == s3[i - 1 + j]:
+                elif i > 0 and dp[i - 1][j] and s1[i - 1] == s3[i + j - 1]:
                     dp[i][j] = True
                 elif j > 0 and dp[i][j - 1] and s2[j - 1] == s3[i + j - 1]:
                     dp[i][j] = True
