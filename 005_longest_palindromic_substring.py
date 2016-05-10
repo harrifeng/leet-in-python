@@ -32,20 +32,20 @@ class Solution(object):
         t = "^#" + '#'.join(s) + "#$"
         size = [0] * 3000
         i = 1
-        tmpc, tmpr, maxp, maxi = 0, 0, 0, 0
+        centeri, righti, maxp, maxi = 0, 0, 0, 0
 
         for i in range(1, len(t) - 1):
-            if tmpr > i:
-                start = min(size[2 * tmpc - i], tmpr - i)
+            if righti > i:
+                start = min(size[2 * centeri - i], righti - i)
             else:
                 start = 1
             while t[i + start] == t[i - start]:
                 start += 1
             size[i] = start
 
-            if size[i] + i > tmpr:
-                tmpr = size[i] + i
-                tmpc = i
+            if size[i] + i > righti:
+                righti = size[i] + i
+                centeri = i
             if maxp < size[i]:
                 maxp = size[i]
                 maxi = i
