@@ -39,37 +39,39 @@ class MyTest(unittest.TestCase):
                                      "text", "justification."], 16))
 
 
-class Solution:
-    # @param words, a list of strings
-    # @param L, an integer
-    # @return a list of strings
+class Solution(object):
 
-    def fullJustify(self, words, L):
+    def fullJustify(self, words, maxWidth):
+        """
+        :type words: List[str]
+        :type maxWidth: int
+        :rtype: List[str]
+        """
+        def fillToMax(string, maxV):
+            string += ' ' * (maxV - len(string))
+            return string
+
         cur_len = 0
         res = []
         ret = []
+
         for word in words:
-            if cur_len + len(word) + len(res) <= L:
+            if cur_len + len(word) + len(res) <= maxWidth:
                 res.append(word)
                 cur_len += len(word)
             else:
                 if len(res) == 1:
-                    ret.append(self.fill_spaces(res[0], L))
+                    ret.append(fillToMax(res[0], maxWidth))
                 else:
-                    extra_spaces = L - cur_len - (len(res) - 1)
-                    each_extra = extra_spaces / (len(res) - 1) + 1
-                    rest_spaces = extra_spaces % (len(res) - 1)
+                    all_spaces = maxWidth - cur_len
+                    each_spaces = all_spaces / (len(res) - 1)
+                    rest_spaces = all_spaces % (len(res) - 1)
                     for i in range(rest_spaces):
                         res[i] += ' '
-                    line = (' ' * each_extra).join(res)
+                    line = (' ' * each_spaces).join(res)
                     ret.append(line)
                 res = []
                 res.append(word)
                 cur_len = len(word)
-        ret.append(self.fill_spaces(' '.join(res), L))
+        ret.append(fillToMax(' '.join(res), maxWidth))
         return ret
-
-    def fill_spaces(self, string, L):
-        length = len(string)
-        string += ' ' * (L - length)
-        return string
