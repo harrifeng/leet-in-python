@@ -32,16 +32,19 @@ class Solution(object):
         :type target: int
         :rtype: bool
         """
-        N = len(matrix)
-        if N == 0:
+        m = len(matrix)
+        if m == 0:
             return False
-        if N == 1:
-            return target in matrix[0]
 
-        mid = N / 2 - 1
-        if target in matrix[mid]:
-            return True
-        elif matrix[mid][-1] < target:
-            return self.searchMatrix(matrix[mid+1:], target)
-        else:
-            return self.searchMatrix(matrix[:mid], target)
+        beg = 0
+        end = m - 1
+
+        while beg <= end:
+            mid = (beg + end) / 2
+            if target in matrix[mid]:
+                return True
+            if target < matrix[mid][0]:
+                end = mid - 1
+            else:
+                beg = mid + 1
+        return False
