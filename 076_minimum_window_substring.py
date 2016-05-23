@@ -30,34 +30,35 @@ class Solution(object):
         :type t: str
         :rtype: str
         """
-        N = len(S)
-        M = len(T)
-        wanted = {}
-        found = {}
-        for char in T:
-            wanted[char] = wanted.get(char, 0) + 1
-            found[char] = 0
-        l = 0
-        res = ''
-        counter = 0
-        for r in range(N):
-            if S[r] not in wanted:
-                continue
+        m = len(S)
+        n = len(T)
+        dic = [0] * 256
+        cnt = [0] * 256
 
-            found[S[r]] += 1
-            if found[S[r]] <= wanted[S[r]]:
-                counter += 1
+        for c in T:
+            dic[ord(c)] += 1
+            cnt[ord(c)] += 1
 
-            if counter == M:
-                while l < r:
-                    if S[l] not in wanted:
-                        l += 1
-                        continue
-                    if found[S[l]] > wanted[S[l]]:
-                        found[S[l]] -= 1
-                        l += 1
-                        continue
-                    break
-                if not res or len(res) > r - l + 1:
-                    res = S[l:r + 1]
-        return res
+        start = 0
+        minV = m + 1
+        left = start
+
+        for i in range(m):
+            if dic[ord(S[i])] > 0:
+                cnt[ord(S[i])] -= 1
+                if cnt[ord(S[i])] >= 0:
+                    n -= 1
+            if n == 0:
+                while start <= i:
+                    if dic[ord(S[start])] > 0:
+                        if cnt[ord(S[start])] < 0:  # left ptr can move on
+                            cnt[ord(S[start])] += 1
+                        else:
+                            break
+                    start += 1
+                if i - start + 1 < minV:
+                    minV = i - start + 1
+                    left = start
+        if minV != m + 1:
+            return S[left:left+minV]
+        return ""
