@@ -35,15 +35,15 @@ class Solution(object):
         :type k: int
         :rtype: List[List[int]]
         """
-        def helper(cur, n, k, tmp, ret):
+        def helper(nums, k, tmp, ret):
             if k == 0:
                 ret.append(tmp[:])
                 return
-            for i in range(cur, n + 1):
-                tmp.append(i)
-                helper(i + 1, n, k - 1, tmp, ret)
+            for i, c in enumerate(nums):
+                tmp.append(c)
+                helper(nums[i + 1:], k - 1, tmp, ret)
                 tmp.pop()
-
         ret = []
-        helper(1, n, k, [], ret)
+        nums = [i for i in range(1, n + 1)]
+        helper(nums, k, [], ret)
         return ret
