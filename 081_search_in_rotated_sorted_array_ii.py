@@ -24,9 +24,6 @@ class Solution(object):
         :rtype: bool
         """
         N = len(nums)
-        if N == 0:
-            return False
-
         beg = 0
         end = N - 1
 
@@ -34,16 +31,19 @@ class Solution(object):
             mid = (beg + end) / 2
             if nums[mid] == target:
                 return True
-            elif nums[beg] < nums[mid]:  # First half sorted
-                if nums[beg] <= target and target < nums[mid]:
+            elif nums[beg] < nums[mid]:
+                if nums[beg] <= target < nums[mid]:
                     end = mid - 1
                 else:
                     beg = mid + 1
-            elif nums[beg] > nums[mid]:  # Second half sorted
+            elif nums[mid] < nums[end]:
                 if nums[mid] < target and target <= nums[end]:
                     beg = mid + 1
                 else:
                     end = mid - 1
-            else:
+            elif nums[beg] == nums[mid]:
                 beg += 1
+            else:  # nums[mid] == nums[end]:
+                end -= 1
+
         return False
