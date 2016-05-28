@@ -77,3 +77,28 @@ class Solution(object):
                     width = i - stack[-1] - 1
                 max_area = max(max_area, width * heights[index])
         return max_area
+"""
+                              8
+                            +---+
+                          7 |///|
+                        +---+---+
+                      6 |///|///|
+                    +---+---+---+
+                  5 |///|///|///|
+                +---+---+---+---+
+                |///|///|///|///|
+                +---+---+---+---+
+                |///|///|///|///| 3
+                +---+---+---+---+---+
+                |///|///|///|///|///|
+                +---+---+---+---+---+
+                |///|///|///|///|///|
+                +---+---+---+---+---+
+                |///|///|///|///|///|
+                +---+---+---+---+---+
+See the height [5, 6, 7, 8, 3], the 3 is smaller than everyone before it,
+so we can use one-pass to calculate the biggest part before 3, and the value
+will NOT influence other parts.
+That's why we add the 0 to the end, it will help us to calculate all before
+that.
+"""
