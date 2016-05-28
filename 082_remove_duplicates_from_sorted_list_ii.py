@@ -47,22 +47,22 @@ class Solution(object):
 
         dummy = ListNode(-1)
         dummy.next = head
-        # like remove duplicate from array, pre is the last valid one
+        ###############################################################
+        # like remove duplicate from array, pre is the last valid one #
+        # and pre.next == cur means the left-side OK one              #
+        ###############################################################
         pre = dummy
         cur = head
 
-        while cur is not None:
-            if cur.next is not None and cur.next.val == cur.val:
-                while cur.next is not None:
-                    if cur.next.val != cur.val:
-                        break
-                    cur = cur.next
-                cur = cur.next  # first half valid here
-            # cur.val != cur.next.val, second half valid here
-            else:
-                pre.next = cur
-                pre = pre.next
-                cur = cur.next
-        pre.next = None
+        while cur.next is not None:
+            if cur.val != cur.next.val:  # right-side ok
+                if pre.next == cur:      # if left-side ok, add one to result
+                    pre = pre.next
+                else:
+                    pre.next = cur.next  # left-side not ok, new start
+            cur = cur.next
 
+        if pre.next == cur:     # cur is the last one, add it to result
+            pre = pre.next
+        pre.next = None
         return dummy.next
