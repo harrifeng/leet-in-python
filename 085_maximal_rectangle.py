@@ -25,29 +25,36 @@ class Solution(object):
         :type matrix: List[List[str]]
         :rtype: int
         """
-        if len(matrix) == 0 or len(matrix[0]) == 0:
-            return 0
         m = len(matrix)
+        if m == 0:
+            return 0
         n = len(matrix[0])
-        h = [0] * (n + 1)
-        maxv = 0
+
+        max_area = 0
+        heights = [0] * n
         for i in range(m):
             for j in range(n):
-                if matrix[i][j] == '0':
-                    h[j] = 0
+                if matrix[i][j] == "0":
+                    heights[j] = 0
                 else:
-                    h[j] += 1
-            sta = []
-            k = 0
-            while k < len(h):
-                if len(sta) == 0 or h[k] >= h[sta[-1]]:
-                    sta.append(k)
-                    k += 1
+                    heights[j] += 1
+            max_area = max(max_area, self.helper(heights))
+        return max_area
+
+    def helper(self, heights):
+        heights.append(0)
+        i = 0
+        maxv = 0
+        sta = []
+        while i < len(heights):
+            if len(sta) == 0 or heights[i] >= heights[sta[-1]]:
+                sta.append(i)
+                i += 1
+            else:
+                index = sta.pop()
+                if len(sta) == 0:
+                    width = i
                 else:
-                    height = h[sta.pop()]
-                    if len(sta) == 0:
-                        width = k
-                    else:
-                        width = k - sta[-1] - 1
-                    maxv = max(maxv, width * height)
+                    width = i - sta[-1] - 1
+                maxv = max(maxv, width * heights[index])
         return maxv
