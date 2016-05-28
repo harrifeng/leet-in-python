@@ -71,9 +71,10 @@ class Solution(object):
                 # h = heights[index]
                 index = stack.pop()
                 if len(stack) == 0:
-                    # left bound = 0, right bound i-1, w = (i-1) - (0) + 1 = i
+                    # range [0, i) include 0, exclude i
                     width = i
                 else:
+                    # range (stack[-1], i) exclude stack[-1], exclude i
                     width = i - stack[-1] - 1
                 max_area = max(max_area, width * heights[index])
         return max_area
