@@ -8,7 +8,7 @@ Given 1->1->2->3->3, return 1->2->3.
 
 import unittest
 import util.list_node as li
-from util.list_node import ListNode
+# from util.list_node import ListNode
 
 
 class MyTest(unittest.TestCase):
