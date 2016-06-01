@@ -26,19 +26,19 @@ class Solution(object):
         :type s: str
         :rtype: List[str]
         """
-        def helper(s, level, tmp, ret):
-            if level == 0:
-                if len(s) == 0:
-                    ret.append('.'.join(tmp))
+        def helper(s, tmp, ret):
+            if len(tmp) > 4:
+                return
+            if len(s) == 0 and len(tmp) == 4:
+                ret.append('.'.join(tmp))
                 return
 
-            for i in range(1, min(3, len(s)) + 1):
-                if int(s[:i]) < 256:
-                    if len(s[:i]) > 1 and s[0] == '0':
-                        continue
-                    tmp.append(s[:i])
-                    helper(s[i:], level - 1, tmp, ret)
-                    tmp.pop()
+            for i in range(1, min(len(s) + 1, 4)):
+                if (i > 1 and s[0] == '0') or (i == 3 and int(s[:3]) > 255):
+                    continue
+                tmp.append(s[:i])
+                helper(s[i:], tmp, ret)
+                tmp.pop()
         ret = []
-        helper(s, 4, [], ret)
+        helper(s, [], ret)
         return ret
