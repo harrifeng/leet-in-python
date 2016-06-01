@@ -55,20 +55,14 @@ class Solution(object):
         """
         if len(s1) != len(s2):
             return False
-        if not self.hasSameLetter(s1, s2):
+        if sorted(s1) != sorted(s2):
             return False
         if len(s1) <= 2:
             return True
         for i in range(1, len(s1)):
-            # This is soooo important, -i!!!
             if ((self.isScramble(s1[:i], s2[:i]) and
                  self.isScramble(s1[i:], s2[i:])) or
                 (self.isScramble(s1[:i], s2[-i:]) and
                  self.isScramble(s1[i:], s2[:-i]))):
                 return True
         return False
-
-    def hasSameLetter(self, s1, s2):
-        if sorted(s1) != sorted(s2):
-            return False
-        return True
