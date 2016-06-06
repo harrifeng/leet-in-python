@@ -28,20 +28,12 @@ class Solution(object):
         :type root: TreeNode
         :rtype: bool
         """
-        def inorderTrav(node):
-            if node is None:
-                return []
-            ret = []
-            ret.extend(inorderTrav(node.left))
-            ret.append(node.val)
-            ret.extend(inorderTrav(node.right))
-            return ret
-
-        if root is None:
-            return True
-        line = inorderTrav(root)
-
-        for i in range(1, len(line)):
-            if line[i] <= line[i-1]:
+        def helper(root, min, max):
+            if root is None:
+                return True
+            if root.val <= min or root.val >= max:
                 return False
-        return True
+            return helper(root.left, min, root.val) and \
+                helper(root.right, root.val, max)
+
+        return helper(root, -2 ** 63, 2 ** 63 - 1)
