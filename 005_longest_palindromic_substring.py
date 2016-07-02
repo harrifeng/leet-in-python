@@ -49,4 +49,9 @@ class Solution(object):
             if maxp < size[i]:
                 maxp = size[i]
                 maxi = i
+        ######################################################
+        # (maxi/2 - maxp/2) can find the starter.            #
+        # The reason is that the 'digit' must be odd number, #
+        # and its count is also odd number                   #
+        ######################################################
         return s[maxi / 2 - maxp / 2: maxi / 2 - maxp / 2 + maxp - 1]
