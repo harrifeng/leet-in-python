@@ -17,6 +17,10 @@ class MyTest(unittest.TestCase):
         self.assertEqual(3, solution.lengthOfLongestSubstring("abcabcbb"))
         self.assertEqual(1, solution.lengthOfLongestSubstring("bbbbb"))
         self.assertEqual(2, solution.lengthOfLongestSubstring("abba"))
+        #################################################################
+        # This example demostrate that start is bigger than d[char] + 1 #
+        #################################################################
+        self.assertEqual(3, solution.lengthOfLongestSubstring("abcba"))
 
 
 class Solution(object):
